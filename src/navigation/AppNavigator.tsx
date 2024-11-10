@@ -3,26 +3,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-// Screen imports (예시)
 import HomeScreen from "@/screens/HomeScreen";
-import ProfileScreen from "@/screens/ProfileScreen";
 import SettingsScreen from "@/screens/SettingsScreen";
 import DetailScreen from "@/screens/DetailScreen";
-
-// Navigator types
-export type RootStackParamList = {
-  MainTab: undefined;
-  Detail: { id: string };
-  Profile: undefined;
-};
-
-export type MainTabParamList = {
-  Home: undefined;
-  Settings: undefined;
-};
+import { RootStackParamList } from "@/types/routes";
+import { BottomTabParamList } from "@/types/routes";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const Tab = createBottomTabNavigator<MainTabParamList>();
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomTabNavigator = () => {
   return (
