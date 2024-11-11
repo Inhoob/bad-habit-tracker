@@ -1,3 +1,5 @@
+import { HabitList, HabitRecords } from "./habit";
+
 export type StorageKey = {
   // 사용자 관련
   "user.theme": "light" | "dark";
@@ -9,8 +11,9 @@ export type StorageKey = {
   "settings.soundEnabled": boolean;
 
   // 습관 관련
+  "habits.list": HabitList;
+  "habits.records": HabitRecords;
   "habits.lastUpdated": number;
-  "habits.list": string; // JSON stringified array
 
   // 통계 관련
   "stats.weeklyProgress": string; // JSON stringified object
