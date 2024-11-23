@@ -1,4 +1,4 @@
-import { HabitList, HabitRecords } from "./habit";
+import { Habit, HabitList, HabitRecords } from "./habit";
 
 export type StorageKey = {
   // 사용자 관련
@@ -14,6 +14,7 @@ export type StorageKey = {
   "habits.list": HabitList;
   "habits.records": HabitRecords;
   "habits.lastUpdated": number;
+  "habits.current": Habit | null;
 
   // 통계 관련
   "stats.weeklyProgress": string; // JSON stringified object
@@ -23,5 +24,5 @@ export type StorageKey = {
 // Storage 키의 유니온 타입
 export type StorageKeyType = keyof StorageKey;
 
-// Storage 값의 타입
+// Storage 값의 타입 수정
 export type StorageValueType<K extends StorageKeyType> = StorageKey[K];

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { storage } from "@/utils/storage";
+import { storage } from "@/utils/storageUtils";
 import type { StorageKeyType, StorageValueType } from "@/types/storage";
 
 export function useStorage<K extends StorageKeyType>(

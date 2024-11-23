@@ -3,7 +3,7 @@ import { breakpoints, lightTheme, darkTheme } from "@/styles/theme";
 
 type AppBreakpoints = typeof breakpoints;
 type AppThemes = {
-  light: typeof lightTheme;
+  light: typeof darkTheme;
   dark: typeof darkTheme;
 };
 declare module "react-native-unistyles" {
@@ -13,7 +13,7 @@ declare module "react-native-unistyles" {
 
 UnistylesRegistry.addBreakpoints(breakpoints)
   .addThemes({
-    light: lightTheme,
+    light: darkTheme,
     dark: darkTheme,
   })
   .addConfig({

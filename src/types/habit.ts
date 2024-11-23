@@ -16,5 +16,5 @@ export interface HabitRecord {
 
 // 날짜별 습관 기록을 저장하는 타입
 export type HabitRecords = {
-  [date: string]: HabitRecord[]; // key format: "YYYY-MM-DD"
+  [habitId: string]: HabitRecord[];
 };

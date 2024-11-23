@@ -8,13 +8,25 @@ import SettingsScreen from "@/screens/SettingsScreen";
 import DetailScreen from "@/screens/DetailScreen";
 import { RootStackParamList } from "@/types/routes";
 import { BottomTabParamList } from "@/types/routes";
+import { useStyles } from "react-native-unistyles";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomTabNavigator = () => {
+  const { theme } = useStyles();
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: theme.colors.surface,
+          borderTopColor: theme.colors.border,
+        },
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.textSecondary,
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeScreen}

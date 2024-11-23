@@ -1,33 +1,27 @@
-import { storage } from "../utils/storageUtils";
+import { storage } from "./storageUtils";
 import type { Habit, HabitList, HabitRecord } from "@/types/habit";
+import * as Crypto from "expo-crypto";
 
 // 날짜 포맷 유틸리티
 const formatDate = (date: Date): string => {
   return date.toISOString().split("T")[0];
 };
 
+// 습관 목록 관리
 export const getHabits = (): HabitList => {
   return storage.get("habits.list") || [];
 };
 
-export const addHabit = (name: string): Habit => {
+export const addHabit = (name: string, color: string): Habit => {
   const habits = getHabits();
   const newHabit: Habit = {
-    id: Date.now().toString(),
+    id: Crypto.randomUUID(),
     name,
     createdAt: Date.now(),
   };
 
   storage.set("habits.list", [...habits, newHabit]);
   return newHabit;
-};
-
-export const removeHabit = (id: string): void => {
-  const habits = getHabits();
-  storage.set(
-    "habits.list",
-    habits.filter((habit) => habit.id !== id)
-  );
 };
 
 // 습관 기록 관리
@@ -51,15 +45,13 @@ export const addHabitRecord = (habitId: string): void => {
   storage.set("habits.records", records);
 };
 
-export const getHabitCountForDate = (
-  date: Date,
-  habitId?: string
-): number | null => {
+// 통계 관련 유틸리티
+export const getHabitCountForDate = (date: Date, habitId?: string): number => {
   const records = getHabitRecords(date);
   if (habitId) {
     return records.filter((record) => record.habitId === habitId).length;
   }
-  return null;
+  return records.length;
 };
 
 export const getHabitTimeDistribution = (

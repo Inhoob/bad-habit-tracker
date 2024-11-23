@@ -7,6 +7,8 @@ PODS:
     - ExpoModulesCore
   - ExpoAsset (11.0.0):
     - ExpoModulesCore
+  - ExpoCrypto (14.0.1):
+    - ExpoModulesCore
   - ExpoFileSystem (18.0.1):
     - ExpoModulesCore
   - ExpoFont (13.0.1):
@@ -1727,6 +1729,7 @@ DEPENDENCIES:
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - Expo (from `../node_modules/expo`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
+  - ExpoCrypto (from `../node_modules/expo-crypto/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
@@ -1815,6 +1818,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo"
   ExpoAsset:
     :path: "../node_modules/expo-asset/ios"
+  ExpoCrypto:
+    :path: "../node_modules/expo-crypto/ios"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
   ExpoFont:
@@ -1963,6 +1968,7 @@ SPEC CHECKSUMS:
   EXConstants: 33cb635065c7c1fe09a0fce5c8ddde8a0a2860c4
   Expo: 22775a567db450535b91cace34cbb2f4fb54cf81
   ExpoAsset: 9de2f325e8c97a4c6c2bc85e507ae7f0809c91aa
+  ExpoCrypto: 8465f71eb3798c194c0a509d4a76e5c429656d83
   ExpoFileSystem: 60313d0b54cb8242004525f37c9b85988194ae33
   ExpoFont: 7522d869d84ee2ee8093ee997fef5b86f85d856b
   ExpoKeepAwake: 783e68647b969b210a786047c3daa7b753dcac1f

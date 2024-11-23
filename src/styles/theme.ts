@@ -75,10 +75,10 @@ export const lightTheme = {
 export const darkTheme = {
   colors: {
     // 기본
-    background: "#121212",
-    surface: "#1E1E1E",
-    text: palette.gray[50],
-    textSecondary: palette.gray[400],
+    background: "#000000",
+    surface: "#121212",
+    text: "#FFFFFF",
+    textSecondary: palette.gray[300],
 
     // 브랜드
     primary: palette.orange[500],
@@ -94,4 +94,9 @@ export const darkTheme = {
   },
   spacing: lightTheme.spacing,
   borderRadius: lightTheme.borderRadius,
+} as const;
+
+export const commonColors = {
+  ...darkTheme.colors,
+  ...lightTheme.colors,
 } as const;
