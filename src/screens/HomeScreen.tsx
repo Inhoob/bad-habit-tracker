@@ -7,6 +7,8 @@ import Spacer from "@/components/Spacer";
 
 import * as Crypto from "expo-crypto";
 import { useStorage } from "@/hooks/useStorage";
+import Accordion from "@/components/atom/Accordion";
+import Typography from "@/components/Typography";
 
 interface HomeScreenProps {}
 
@@ -16,7 +18,13 @@ const HomeScreen = ({}: HomeScreenProps): JSX.Element => {
 
   const [habits, setHabits] = useStorage("habits.list", []);
   const [currentHabit, setCurrentHabit] = useStorage("habits.current", null);
-  console.log(habits);
+
+  useEffect(() => {
+    if (!currentHabit && habits?.length > 0) {
+      setCurrentHabit(habits[0]);
+    }
+  }, [habits]);
+
   const handlePressAdd = () => {
     Alert.prompt(
       "Enter your own habit",
@@ -49,27 +57,23 @@ const HomeScreen = ({}: HomeScreenProps): JSX.Element => {
     }
   };
 
+  console.debug("currentHabit", currentHabit);
+
   return (
     <View style={styles.container}>
       {habits && habits.length > 0 ? (
-        <List.Accordion
-          style={styles.habitSelector}
-          title={currentHabit ? currentHabit?.name : "Select Habit"}
-          expanded={expanded}
-          onPress={() => setExpanded(!expanded)}
-        >
-          {habits.map((habit) => (
-            <List.Item
-              key={habit?.id}
-              title={habit?.name}
-              onPress={() => {
-                setCurrentHabit(habit);
-                setExpanded(false);
-              }}
-              style={styles.habitSelector}
-            />
-          ))}
-        </List.Accordion>
+        <View style={styles.headerContainer}>
+          <Accordion
+            title={currentHabit?.name || "Select Habit"}
+            style={{ minWidth: "33%", maxWidth: "66%" }}
+          >
+            {habits.map((habit) => (
+              <Pressable key={habit.id} onPress={() => setCurrentHabit(habit)}>
+                <Typography>{habit.name}</Typography>
+              </Pressable>
+            ))}
+          </Accordion>
+        </View>
       ) : (
         <View style={{ flex: 1, alignItems: "center" }}>
           <Spacer h={30} />
@@ -103,5 +107,33 @@ const stylesheet = createStyleSheet((theme, rt) => ({
     right: 20,
     bottom: 20,
   },
-  habitSelector: {},
+  headerContainer: {
+    width: "100%",
+    alignItems: "flex-end",
+    paddingTop: 20,
+    paddingRight: 20,
+  },
+  habitSelector: {
+    borderRadius: theme.borderRadius.md,
+    backgroundColor: theme.colors.primary,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
+  habitSelectorTitle: {
+    fontSize: 16,
+    color: theme.colors.primary,
+    fontWeight: "600",
+  },
+  habitItem: {
+    backgroundColor: theme.colors.background,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
+  },
+  habitItemSelected: {
+    backgroundColor: theme.colors.primaryLight + "20", // 20은 투명도
+  },
+  habitItemTitle: {
+    fontSize: 14,
+    color: theme.colors.text,
+  },
 }));
