@@ -9,6 +9,7 @@ import * as Crypto from "expo-crypto";
 import { useStorage } from "@/hooks/useStorage";
 import Accordion from "@/components/atom/Accordion";
 import Typography from "@/components/Typography";
+import { addHabitRecord } from "@/services/habits";
 
 interface HomeScreenProps {}
 
@@ -62,18 +63,23 @@ const HomeScreen = ({}: HomeScreenProps): JSX.Element => {
   return (
     <View style={styles.container}>
       {habits && habits.length > 0 ? (
-        <View style={styles.headerContainer}>
-          <Accordion
-            title={currentHabit?.name || "Select Habit"}
-            style={{ minWidth: "33%", maxWidth: "66%" }}
-          >
-            {habits.map((habit) => (
-              <Pressable key={habit.id} onPress={() => setCurrentHabit(habit)}>
-                <Typography>{habit.name}</Typography>
-              </Pressable>
-            ))}
-          </Accordion>
-        </View>
+        <>
+          <View style={styles.headerContainer}>
+            <Accordion
+              title={currentHabit?.name || "Select Habit"}
+              style={{ minWidth: "33%", maxWidth: "66%" }}
+            >
+              {habits.map((habit) => (
+                <Pressable
+                  key={habit.id}
+                  onPress={() => setCurrentHabit(habit)}
+                >
+                  <Typography>{habit.name}</Typography>
+                </Pressable>
+              ))}
+            </Accordion>
+          </View>
+        </>
       ) : (
         <View style={{ flex: 1, alignItems: "center" }}>
           <Spacer h={30} />
@@ -87,6 +93,7 @@ const HomeScreen = ({}: HomeScreenProps): JSX.Element => {
           </Button>
         </View>
       )}
+      <Spacer h={10} />
 
       <FAB icon="plus" onPress={handlePressAdd} style={styles.fab} />
     </View>
