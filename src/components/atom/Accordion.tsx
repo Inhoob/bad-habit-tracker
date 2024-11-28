@@ -24,7 +24,7 @@ const Accordion = <T extends any>({
   renderItem,
   onSelect,
   style,
-  contentHeight = 300,
+  contentHeight = 100,
 }: AccordionProps<T>): JSX.Element => {
   const { styles } = useStyles(stylesheet);
   const isOpen = useSharedValue(0);
@@ -75,6 +75,7 @@ const stylesheet = createStyleSheet((theme) => ({
   container: {
     borderRadius: theme.borderRadius.lg,
     borderWidth: 1,
+    position: "relative",
   },
   header: {
     padding: 16,
@@ -83,6 +84,12 @@ const stylesheet = createStyleSheet((theme) => ({
   },
   content: {
     overflow: "hidden",
-    height: 20,
+    position: "absolute",
+    top: "100%",
+    left: 0,
+    right: 0,
+    backgroundColor: theme.colors.surface,
+    borderBottomLeftRadius: theme.borderRadius.lg,
+    borderBottomRightRadius: theme.borderRadius.lg,
   },
 }));

@@ -1,6 +1,6 @@
-import { Alert, Pressable, Text, View } from "react-native";
+import { Alert, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { Button } from "react-native-paper";
-import { FAB, List } from "react-native-paper";
+import { FAB } from "react-native-paper";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 import { useEffect, useState } from "react";
 import Spacer from "@/components/Spacer";
@@ -9,7 +9,6 @@ import * as Crypto from "expo-crypto";
 import { useStorage } from "@/hooks/useStorage";
 import Accordion from "@/components/atom/Accordion";
 import Typography from "@/components/Typography";
-import { addHabitRecord } from "@/services/habits";
 
 interface HomeScreenProps {}
 
