@@ -7,21 +7,30 @@ import Animated, {
   interpolate,
 } from "react-native-reanimated";
 import Typography from "@/components/Typography";
+import { useEffect } from "react";
 
-interface AccordionProps {
+interface AccordionProps<T> {
   title: React.ReactNode;
-  children: React.ReactNode;
-  expanded?: boolean;
-  onSelect?: () => void;
+  data: T[];
+  renderItem: (item: T, index: number) => React.ReactNode;
+  onSelect?: (item: T) => void;
   style?: ViewStyle;
+  contentHeight?: number;
 }
 
-const Accordion = ({ title, children, style }: AccordionProps): JSX.Element => {
+const Accordion = <T extends any>({
+  title,
+  data,
+  renderItem,
+  onSelect,
+  style,
+  contentHeight = 300,
+}: AccordionProps<T>): JSX.Element => {
   const { styles } = useStyles(stylesheet);
   const isOpen = useSharedValue(0);
 
   const animatedStyle = useAnimatedStyle(() => {
-    const height = interpolate(isOpen.value, [0, 1], [0, 300]);
+    const height = interpolate(isOpen.value, [0, 1], [0, contentHeight]);
 
     return {
       height,
@@ -30,7 +39,6 @@ const Accordion = ({ title, children, style }: AccordionProps): JSX.Element => {
   });
 
   const toggleAccordion = () => {
-    console.debug("toggle!!", isOpen.value);
     isOpen.value = withTiming(isOpen.value === 0 ? 1 : 0, {
       duration: 300,
     });
@@ -45,7 +53,17 @@ const Accordion = ({ title, children, style }: AccordionProps): JSX.Element => {
       </Pressable>
 
       <Animated.ScrollView style={[styles.content, animatedStyle]}>
-        {children}
+        {data.map((item, index) => (
+          <Pressable
+            key={index}
+            onPress={() => {
+              onSelect?.(item);
+              toggleAccordion();
+            }}
+          >
+            {renderItem(item, index)}
+          </Pressable>
+        ))}
       </Animated.ScrollView>
     </View>
   );

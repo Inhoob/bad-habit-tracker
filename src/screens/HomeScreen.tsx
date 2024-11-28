@@ -68,16 +68,12 @@ const HomeScreen = ({}: HomeScreenProps): JSX.Element => {
             <Accordion
               title={currentHabit?.name || "Select Habit"}
               style={{ minWidth: "33%", maxWidth: "66%" }}
-            >
-              {habits.map((habit) => (
-                <Pressable
-                  key={habit.id}
-                  onPress={() => setCurrentHabit(habit)}
-                >
-                  <Typography>{habit.name}</Typography>
-                </Pressable>
-              ))}
-            </Accordion>
+              data={habits}
+              renderItem={(habit) => <Typography>{habit.name}</Typography>}
+              onSelect={(habit) => {
+                setCurrentHabit(habit);
+              }}
+            />
           </View>
         </>
       ) : (
