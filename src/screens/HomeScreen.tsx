@@ -9,14 +9,13 @@ import * as Crypto from "expo-crypto";
 import { useStorage } from "@/hooks/useStorage";
 import Accordion from "@/components/atom/Accordion";
 import Typography from "@/components/Typography";
+import { useHabitManager } from "@/hooks/useHabitManager";
 
 interface HomeScreenProps {}
 
 const HomeScreen = ({}: HomeScreenProps): JSX.Element => {
   const { styles, theme } = useStyles(stylesheet);
-  const [expanded, setExpanded] = useState(false);
-
-  const [habits, setHabits] = useStorage("habits.list", []);
+  const { habits, setHabits, recordOccurrence } = useHabitManager();
   const [currentHabit, setCurrentHabit] = useStorage("habits.current", null);
 
   useEffect(() => {
@@ -50,14 +49,14 @@ const HomeScreen = ({}: HomeScreenProps): JSX.Element => {
       id: Crypto.randomUUID(),
       name: habit,
       createdAt: Date.now(),
+      occurrences: [],
+      isArchived: false,
     };
     setHabits([...(habits ?? []), newHabit]);
     if (habits?.length === 0) {
       setCurrentHabit(newHabit);
     }
   };
-
-  console.debug("currentHabit", currentHabit);
 
   return (
     <View style={styles.container}>
@@ -89,6 +88,15 @@ const HomeScreen = ({}: HomeScreenProps): JSX.Element => {
         </View>
       )}
       <Spacer h={10} />
+      <TouchableOpacity
+        onPress={() => {
+          if (currentHabit?.id) {
+            recordOccurrence(currentHabit.id);
+          }
+        }}
+      >
+        <Typography>Record Occurrence</Typography>
+      </TouchableOpacity>
 
       <FAB icon="plus" onPress={handlePressAdd} style={styles.fab} />
     </View>

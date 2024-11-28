@@ -1,4 +1,4 @@
-import { Habit, HabitList, HabitRecords } from "./habit";
+import { Habit } from "./habit";
 
 export type StorageKey = {
   // 사용자 관련
@@ -11,8 +11,7 @@ export type StorageKey = {
   "settings.soundEnabled": boolean;
 
   // 습관 관련
-  "habits.list": HabitList;
-  "habits.records": HabitRecords;
+  "habits.list": Habit[];
   "habits.lastUpdated": number;
   "habits.current": Habit | null;
 
